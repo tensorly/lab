@@ -46,7 +46,7 @@ VERSION = version(root_path)
 
 
 config = {
-    'name': 'tensorly_lab',
+    'name': 'tensorly-lab',
     'packages': find_packages(),
     'description': 'Tensor learning in Python, experimental functionalities.',
     'long_description': README,
@@ -54,9 +54,9 @@ config = {
     'maintainer': 'Jean Kossaifi',
     'maintainer_email': 'jean.kossaifi@gmail.com',
     'version': VERSION,
-    'url': 'https://github.com/tensorly/tensorlylab',
-    'download_url': 'https://github.com/tensorly/tensorlylab/tarball/' + VERSION,
-    'install_requires': ['numpy', 'scipy', 'nose'],
+    'url': 'https://github.com/tensorly/lab',
+    'download_url': 'https://github.com/tensorly/lab/tarball/' + VERSION,
+    'install_requires': ['numpy', 'scipy', 'nose', 'tensorly'],
     'license': 'Modified BSD',
     'scripts': [],
     'classifiers': [
