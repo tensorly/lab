@@ -18,7 +18,7 @@ def version(root_path):
     ---------
     https://packaging.python.org/guides/single-sourcing-package-version/
     """
-    version_path = root_path.joinpath('tensorly_lab', '__init__.py')
+    version_path = root_path.joinpath('tlab', '__init__.py')
     with version_path.open() as f:
         version_file = f.read()
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
