@@ -11,6 +11,8 @@ def validate_checkpointing(decomposition, internal_path, store_function, load_fu
 
         store_function(decomposition, checkpoint, internal_path, compression="gzip",
                        compression_opts=5, fletcher32=True, shuffle=True)
+
+        # Check that loading fails with wrong type
         with h5py.File(checkpoint, "a") as h5:
             group = h5[internal_path]
             decomposition_type = group.attrs["decomposition_type"]
@@ -19,11 +21,13 @@ def validate_checkpointing(decomposition, internal_path, store_function, load_fu
         with pytest.raises(ValueError):
             load_function(checkpoint, internal_path)
         
+        # Reset saved type
         with h5py.File(checkpoint, "a") as h5:
             group = h5[internal_path]
             group.attrs["decomposition_type"] = decomposition_type
 
-        with pytest.raises(RuntimeError):
+        # It should fail if we try to overwrite
+        with pytest.raises(ValueError):
             store_function(
                 decomposition,
                 checkpoint,
@@ -35,6 +39,7 @@ def validate_checkpointing(decomposition, internal_path, store_function, load_fu
                 overwrite=False
             )
 
+        # But not fail if we set overwrite=True
         store_function(
             decomposition,
             checkpoint,
