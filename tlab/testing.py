@@ -27,7 +27,7 @@ def validate_checkpointing(decomposition, internal_path, store_function, load_fu
             group.attrs["decomposition_type"] = decomposition_type
 
         # It should fail if we try to overwrite
-        with pytest.raises(ValueError):
+        with pytest.raises((RuntimeError, ValueError)):  # RuntimeError for h5py < v2.3, ValueError after
             store_function(
                 decomposition,
                 checkpoint,
