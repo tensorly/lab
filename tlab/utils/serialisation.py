@@ -41,10 +41,6 @@ def _store_decomposition_dict(decomposition_dict, path, internal_path, attrs,
 
         i = 0
         for name, data in decomposition_dict.items():
-            print(group)
-            print(list(group))
-            print(name)
-            print(i)
             i += 1
             getattr(group, get_dataset)(
                 name, shape=tl.shape(data), dtype=data.dtype, data=data,
