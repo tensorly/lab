@@ -5,6 +5,24 @@ import pytest
 
 
 def validate_checkpointing(decomposition, internal_path, store_function, load_function):
+    """Utility used to validate that checkpoint loading and storing works correctly.
+
+    Parameters:
+    -----------
+    decomposition : 
+        Decomposition object to use for validation.
+    internal_path : str
+        Internal path to the given HDF5 file that contain the decomposition.
+    store_function : Callable
+        Function used to store a decomposition to disk.
+    load_function : Callable
+        Function used to load a decomposition file.
+
+    Returns
+    -------
+    loaded : 
+        Decomposition loaded after storing it to disk.
+    """
     with TemporaryDirectory() as tmpdir:
         tmpdir = Path(tmpdir)
         checkpoint = tmpdir / "checkpoint.h5"
@@ -27,7 +45,7 @@ def validate_checkpointing(decomposition, internal_path, store_function, load_fu
             group.attrs["decomposition_type"] = decomposition_type
 
         # It should fail if we try to overwrite
-        with pytest.raises((RuntimeError, ValueError)):  # RuntimeError for h5py < v2.3, ValueError after
+        with pytest.raises((RuntimeError, ValueError)):  # RuntimeError for h5py v<2.3, ValueError after
             store_function(
                 decomposition,
                 checkpoint,
