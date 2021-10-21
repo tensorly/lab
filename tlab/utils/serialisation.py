@@ -15,10 +15,15 @@ def _store_decomposition_dict(decomposition_dict, path, internal_path, attrs,
         Path to the HDF5 file the checkpoint is stored in
     internal_path : str
         Name of the HDF5 group the decomposition is stored in.
-    
-    decomposition_type : str
-        Name of the decomposition type, used for validation when the decomposition
-        is loaded.
+    attrs : dict
+        Dictionary with HDF5 attributes to add to the decomposition group.
+        ``"decomposition_type"`` must be one of the attributes.
+    compression : str or None
+        Compression type for the HDF5-datasets. Any option supported
+        by HDF5 is accepted here.
+    overwrite : bool
+        If True, then the code will attempt to overwrite existing decompositions.
+        However, it may fail (e.g. if the tensor has changed shape).
     """
     if "decomposition_type" not in attrs:
         raise ValueError("`'decomposition_type'` must be a key in `attrs`.",
