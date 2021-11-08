@@ -8,8 +8,8 @@ def _store_decomposition_dict(decomposition_dict, path, internal_path, attrs,
                               compression="gzip", overwrite=False, **kwargs):
     """Utility function to store a decomposition to an HDF5 file
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     decomposition_dict : Dict[str, np.ndarray]
     path : str or pathlib.Path
         Path to the HDF5 file the checkpoint is stored in
@@ -66,8 +66,8 @@ def _store_decomposition_dict(decomposition_dict, path, internal_path, attrs,
 def _load_decomposition_dict(path, internal_path, decomposition_type):
     """Utility function to load a decomposition from an HDF5 file
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     path : str or pathlib.Path
         Path to the HDF5 file the checkpoint is stored in
     internal_path : str
