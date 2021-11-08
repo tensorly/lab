@@ -5,7 +5,8 @@ from .utils.serialisation import _store_decomposition_dict, _load_decomposition_
 
 def store_cp_tensor(cp_tensor, path, internal_path="/", compression="gzip",
                     overwrite=False, **kwargs):
-    """
+    """Store a CPTensor to file
+    
     Parameters
     ----------
     cp_tensor : CPTensor
@@ -72,7 +73,7 @@ def load_cp_tensor(path, internal_path="/"):
     internal_path : str
         Name of the HDF5 group the decomposition is stored in.
     
-    
+
     Examples
     --------
 
