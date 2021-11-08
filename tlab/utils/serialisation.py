@@ -24,6 +24,13 @@ def _store_decomposition_dict(decomposition_dict, path, internal_path, attrs,
     overwrite : bool
         If True, then the code will attempt to overwrite existing decompositions.
         However, it may fail (e.g. if the tensor has changed shape).
+    **kwargs
+        Additional keyword arguments passed to ``h5py.create_dataset``.
+
+    Raises
+    ------
+    ValueError
+        If ``'decomposition_type'`` is not a key in the ``attrs`` dictionary.
     """
     if "decomposition_type" not in attrs:
         raise ValueError("`'decomposition_type'` must be a key in `attrs`.",
@@ -68,6 +75,11 @@ def _load_decomposition_dict(path, internal_path, decomposition_type):
     decomposition_type : str
         Name of the decomposition type, used to validate that the checkpoint
         is loaded correctly.
+    
+    Raises
+    ------
+    ValueError
+        If ``decomposition_type`` is not in the group attributes.
     """
     with h5py.File(path, "r") as h5:
         group = h5[internal_path]
