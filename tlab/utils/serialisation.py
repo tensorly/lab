@@ -1,7 +1,31 @@
+from textwrap import dedent
 from pathlib import Path
 import tensorly as tl
 
-import h5py
+try:
+    import h5py
+    HAS_H5PY = True
+except ImportError:
+    HAS_H5PY = False
+
+
+def _check_dependencies():
+    if HAS_H5PY:
+        return
+    else:
+        raise ValueError(
+            dedent(
+                """\
+                    Serialization not enabled. To enable, install h5py:
+                    
+                    pip:
+                        pip install h5py
+                    
+                    conda:
+                        conda install h5py
+                """
+            )
+        )
 
 
 def _store_decomposition_dict(decomposition_dict, path, internal_path, attrs,
@@ -31,7 +55,11 @@ def _store_decomposition_dict(decomposition_dict, path, internal_path, attrs,
     ------
     ValueError
         If ``'decomposition_type'`` is not a key in the ``attrs`` dictionary.
+    
+    ImportError
+        If h5py is not installed.
     """
+    _check_dependencies()
     if "decomposition_type" not in attrs:
         raise ValueError("`'decomposition_type'` must be a key in `attrs`.",
                          "\nThis error message should only occur during ",
@@ -80,7 +108,11 @@ def _load_decomposition_dict(path, internal_path, decomposition_type):
     ------
     ValueError
         If ``decomposition_type`` is not in the group attributes.
+
+    ImportError
+        If h5py is not installed.
     """
+    _check_dependencies()
     with h5py.File(path, "r") as h5:
         group = h5[internal_path]
 
